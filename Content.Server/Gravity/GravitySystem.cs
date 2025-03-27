@@ -1,6 +1,7 @@
 using Content.KayMisaZlevels.Shared.Systems;
 using Content.Shared.Gravity;
 using Content.Shared.Maps;
+using Content.Shared.Projectiles;
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -42,8 +43,19 @@ namespace Content.Server.Gravity
                 tileDef = (ContentTileDefinition) _tileDefinitionManager[tile.Tile.TypeId];
             }
 
-            if ((tileDef is null || tileDef.ID == ContentTileDefinition.SpaceID) && physicsComponent.BodyStatus != BodyStatus.InAir)
+            if (tileDef is null || tileDef.ID == ContentTileDefinition.SpaceID)
+            {
+                if (physicsComponent.BodyStatus == BodyStatus.InAir)
+                {
+                    if (TryComp<ProjectileComponent>(args.Target, out var proj))
+                    {
+                        if (proj.TargetMap == Transform(args.Target).MapUid)
+                            return;
+                    }
+                    else return;
+                }
                 args.Affected = true;
+            }
         }
 
         private void OnGravitySource(ref IsGravitySource args)
