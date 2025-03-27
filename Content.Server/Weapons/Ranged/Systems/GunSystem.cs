@@ -45,7 +45,6 @@ public sealed partial class GunSystem : SharedGunSystem
     [Dependency] private readonly ILogManager _logManager = default!;
     [Dependency] private readonly MapSystem _mapSys = default!;
     private SharedZStackSystem? _zStack = default!;
-    private ISawmill _sawmill = default!;
 
     private const float DamagePitchVariation = 0.05f;
 
