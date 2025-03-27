@@ -42,7 +42,6 @@ public sealed partial class GunSystem : SharedGunSystem
     [Dependency] private readonly ContestsSystem _contests = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
     [Dependency] private readonly IMapManager _mapManager = default!;
-    [Dependency] private readonly ILogManager _logManager = default!;
     [Dependency] private readonly MapSystem _mapSys = default!;
     private SharedZStackSystem? _zStack = default!;
 
